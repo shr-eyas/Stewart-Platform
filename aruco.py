@@ -29,12 +29,11 @@ while cap.isOpened():
             distance = np.linalg.norm(tvecs[i])
             rotation_vector = rvecs[i][0]
             rotation_matrix, _ = cv2.Rodrigues(rotation_vector)
-            # Extracting Euler angles from the rotation matrix in radians
+
             yaw = np.arctan2(rotation_matrix[1, 0], rotation_matrix[0, 0])
             pitch = np.arctan2(-rotation_matrix[2, 0], np.sqrt(rotation_matrix[2, 1] ** 2 + rotation_matrix[2, 2] ** 2))
             roll = np.arctan2(rotation_matrix[2, 1], rotation_matrix[2, 2])
 
-            # Convert angles from radians to degrees
             yaw_deg = np.degrees(yaw)
             pitch_deg = np.degrees(pitch)
             roll_deg = np.degrees(roll)
