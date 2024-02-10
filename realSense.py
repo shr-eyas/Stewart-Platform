@@ -34,6 +34,10 @@ while True:
 
         for i in range(len(ids)):
             distance = np.linalg.norm(tvecs[i])
+            x_distance = tvecs[i][0][0]  # X-axis distance
+            y_distance = tvecs[i][0][1]  # Y-axis distance
+            z_distance = tvecs[i][0][2]  # Z-axis distance
+            
             rotation_vector = rvecs[i][0]
             rotation_matrix, _ = cv2.Rodrigues(rotation_vector)
 
@@ -47,6 +51,9 @@ while True:
 
             print("Marker ID:", ids[i][0])
             print("Distance:", (distance*1000))
+            print("X-axis Distance:", x_distance*1000)
+            print("Y-axis Distance:", y_distance*1000)
+            print("Z-axis Distance:", z_distance*1000)
             print("Yaw (degrees):", yaw_deg)
             print("Pitch (degrees):", pitch_deg)
             print("Roll (degrees):", roll_deg)
