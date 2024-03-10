@@ -1,4 +1,8 @@
 import math
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
 from IK import inverse_kinematics
 
 alp = 0
@@ -48,6 +52,26 @@ for _ in range(zItr):
     
     z += 1
 
+def circlePoints(r, phi, z):
+    phiVals = np.linspace(0, 2*np.pi, 100)
+    xVals = r * np.cos(phiVals)
+    yVals = r * np.sin(phiVals)
+    zVals = np.full_like(phiVals, z)
+    return xVals, yVals, zVals
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
 print("Failure points:")
-for r_fail, phi_fail, z_fail in failurePoints:
-    print(f"\n Failed at r = {r_fail}, phi = {phi_fail}, z = {z_fail}")
+
+for r, phi, z in failurePoints:
+    print(f"Failed at r = {r}, phi = {phi}, z = {z}")
+    x_circle, y_circle, z_circle = circlePoints(r, phi, z)
+    ax.plot(x_circle, y_circle, z_circle)
+
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.set_title('Circles at Failure Points for Each z')
+
+plt.show()
