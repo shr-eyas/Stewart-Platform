@@ -8,14 +8,19 @@ x = 0
 y = 0
 z = 154
 
+zMin = 154
+zMax = 180
+zItr = zMax - zMin + 1
+
 degToRad = (math.pi/180)
 
 r = 0
 increment = 0.5
+failurePoints = []
 
-for z in range(154, 180, 1):
-    r = 0
+for _ in range(zItr):
     
+    r = 0
 
     while True:
         fail = 0  
@@ -35,10 +40,14 @@ for z in range(154, 180, 1):
 
             if any(math.isnan(theta) for theta in thetas):
                 fail = 1
-                print("\n IK failed for r =", r, "and phi =", phi, "at z =", z)
+                failurePoints.append((r, phi, z))
                 break
 
         if fail == 1:
             break
     
     z += 1
+
+print("Failure points:")
+for r_fail, phi_fail, z_fail in failurePoints:
+    print(f"\n Failed at r = {r_fail}, phi = {phi_fail}, z = {z_fail}")
